@@ -1,4 +1,6 @@
+import React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
+import '@testing-library/jest-dom/extend-expect'; 
 import Button, { BUTTON_TYPES } from "./index";
 
 describe("When a button is created", () => {

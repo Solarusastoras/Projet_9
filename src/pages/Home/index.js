@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Menu from "../../containers/Menu";
 import ServiceCard from "../../components/ServiceCard";
 import EventCard from "../../components/EventCard";
@@ -14,7 +14,6 @@ import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
   const { last } = useData();
-  const [isOpened, setIsOpened] = useState(false);
 
   return (
     <>

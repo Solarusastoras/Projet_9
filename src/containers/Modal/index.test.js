@@ -1,6 +1,7 @@
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable react/button-has-type */
 /* eslint-disable jsx-a11y/control-has-associated-label */
+import React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
 import Modal from "./index";
 
