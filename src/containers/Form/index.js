@@ -4,7 +4,10 @@ import Field, { FIELD_TYPES } from "../../components/Field";
 import Select from "../../components/Select";
 import Button, { BUTTON_TYPES } from "../../components/Button";
 
-const mockContactApi = () => new Promise((resolve) => { setTimeout(resolve, 500); })
+const mockContactApi = () =>
+  new Promise((resolve) => {
+    setTimeout(resolve, 500);
+  });
 
 const Form = ({ onSuccess, onError }) => {
   const [sending, setSending] = useState(false);
@@ -12,12 +15,18 @@ const Form = ({ onSuccess, onError }) => {
     async (evt) => {
       evt.preventDefault();
       setSending(true);
-      // We try to call mockContactApi
+      // Nous essayons d'appeler mockContactApi
+      // We try to call mockContact
       try {
         await mockContactApi();
         setSending(false);
+        // Appeler onSuccess après la réussite de l'API . ajout onSuccess
+        // Call onSuccess after API success. add onSuccess
+        onSuccess();
       } catch (err) {
         setSending(false);
+        // Appeler onError en cas d'erreur
+        // Call onError in case of error
         onError(err);
       }
     },
@@ -54,13 +63,21 @@ const Form = ({ onSuccess, onError }) => {
 };
 
 Form.propTypes = {
+  // Fonction de rappel appelée en cas d'erreur
+  // Callback function called in case of error
   onError: PropTypes.func,
+  // Fonction de rappel appelée en cas de succès
+  // Callback function called in case of success
   onSuccess: PropTypes.func,
-}
+};
 
 Form.defaultProps = {
+  // Fonction par défaut pour onError
+  // Default function for onError
   onError: () => null,
+  // Fonction par défaut pour onSuccess
+  // Default function for onSuccess
   onSuccess: () => null,
-}
+};
 
 export default Form;
