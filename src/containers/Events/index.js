@@ -9,10 +9,9 @@ import "./style.css";
 
 // Nombre d'événements par page
 // Number of events per page
-const PER_PAGE = 2;
+const PER_PAGE = 9;
+
 const EventList = () => {
-  // Récupère les données et les erreurs du contexte
-  // Get data and errors from the context
   const { data, error } = useData();
   const [type, setType] = useState();
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,36 +20,44 @@ const EventList = () => {
   console.log("DataEvents:", data);
   console.log("--------------");
 
-  // Filtre les événements par type et par page
-  // Filter events by type and by page
-  const filteredEvents = (
-    (!type
-      ? data?.events
-      : data?.events.filter((event) => !type || event.type === type)) || []
-  ).filter((_, index) => {
-    // Filtrer les événements pour la page actuelle
-    // Filter events for the current page
-    if (
-      (currentPage - 1) * PER_PAGE <= index &&
-      PER_PAGE * currentPage > index
-    ) {
-      return true;
-    }
-    return false;
-  });
+  // Modification de code
+  // Filtre les événements par type
+  // Filter events by type
+  const filteredEvents = (!type
+    ? data?.events
+    : data?.events.filter((event) => !type || event.type === type)) || [];
+
+  // Calculer le nombre total d'événements filtrés
+  // Calculate the total number of filtered events
+  const totalEvents = filteredEvents.length;
+
+  // Modification de code
+  // Calculer le nombre de pages nécessaires plus précis 
+  // Calculate the number of pages needed more accurately
+  const pageNumber = Math.ceil(totalEvents / PER_PAGE);
+
+  // Filtrer les événements pour la page actuelle
+  // Filter events for the current page
+  const paginatedEvents = filteredEvents.slice(
+    (currentPage - 1) * PER_PAGE,
+    currentPage * PER_PAGE
+  );
 
   console.log("--------------");
-  console.log("filtre:", filteredEvents);
+  console.log("filtre:", paginatedEvents);
   console.log("--------------");
 
   // Change le type d'événement sélectionné et réinitialise la page à 1
-  // Change the selected event type and reset the page to 2
+  // Change the selected event type and reset the page to 1
   const changeType = (evtType) => {
     setCurrentPage(1);
     setType(evtType);
   };
-  const pageNumber = Math.floor((filteredEvents?.length || 0) / PER_PAGE) + 1;
+
+  // Créer une liste des types d'événements
+  // Create a list of event types
   const typeList = new Set(data?.events.map((event) => event.type));
+  
 
   return (
     <>
@@ -69,7 +76,7 @@ const EventList = () => {
             onChange={(value) => (value ? changeType(value) : changeType(null))}
           />
           <div id="events" className="ListContainer">
-            {filteredEvents.map((event) => (
+            {paginatedEvents.map((event) => (
               <Modal key={event.id} Content={<ModalEvent event={event} />}>
                 {({ setIsOpened }) => (
                   <EventCard
@@ -84,7 +91,7 @@ const EventList = () => {
             ))}
           </div>
           <div className="Pagination">
-            {[...Array(pageNumber || 0)].map((_, n) => (
+            {[...Array(pageNumber)].map((_, n) => (
               //eslint-disable-next-line react/no-array-index-key
               <a key={n} href="#events" onClick={() => setCurrentPage(n + 1)}>
                 {/* Afficher les numéros de page et permettre à l'utilisateur de naviguer entre les pages
