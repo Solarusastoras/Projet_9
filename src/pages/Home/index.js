@@ -53,8 +53,8 @@ const Page = () => {
             </ServiceCard>
           </div>
         </section>
-        <section className="EventsContainer">
-          <h2 className="Title">Nos réalisations</h2>
+        <section id="EventsContainer" className="EventsContainer">
+          <h2 id="title_realisation" className="Title">Nos réalisations</h2>
           <EventList />
         </section>
         <section className="PeoplesContainer">
@@ -112,7 +112,8 @@ const Page = () => {
           </Modal>
         </div>
       </main>
-      <footer className="row">
+
+      <footer data-testid="test-footer" className="row">
         <div className="col presta" data-testid="last-event">
           <h3>Notre dernière prestation</h3>
           {last && last.cover && last.title && (

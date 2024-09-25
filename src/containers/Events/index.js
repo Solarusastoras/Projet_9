@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import EventCard from "../../components/EventCard";
 import Select from "../../components/Select";
 import { useData } from "../../contexts/DataContext";
@@ -10,17 +9,14 @@ import "./style.css";
 
 // Nombre d'événements par page
 // Number of events per page
-const PER_PAGE = 9;
-
+const PER_PAGE = 2;
 const EventList = () => {
   // Récupère les données et les erreurs du contexte
   // Get data and errors from the context
   const { data, error } = useData();
-  const [type, setType] = useState(null);
+  const [type, setType] = useState();
   const [currentPage, setCurrentPage] = useState(1);
 
-  console.log("--------------");
-  console.log("Type:", type);
   console.log("--------------");
   console.log("DataEvents:", data);
   console.log("--------------");
@@ -29,11 +25,9 @@ const EventList = () => {
   // Filter events by type and by page
   const filteredEvents = (
     (!type
-      ? // Si aucun type n'est sélectionné, afficher tous les événements
-        // If no type is selected, display all events
-        data?.events
-      : data?.events.filter((event) => event.type === type)) || []
-  ).filter((event, index) => {
+      ? data?.events
+      : data?.events.filter((event) => !type || event.type === type)) || []
+  ).filter((_, index) => {
     // Filtrer les événements pour la page actuelle
     // Filter events for the current page
     if (
@@ -50,18 +44,12 @@ const EventList = () => {
   console.log("--------------");
 
   // Change le type d'événement sélectionné et réinitialise la page à 1
-  // Change the selected event type and reset the page to 1
+  // Change the selected event type and reset the page to 2
   const changeType = (evtType) => {
     setCurrentPage(1);
     setType(evtType);
   };
-
-  // Calculer le nombre de pages
-  // Calculate the number of pages
   const pageNumber = Math.floor((filteredEvents?.length || 0) / PER_PAGE) + 1;
-
-  // Créer une liste unique de types d'événements
-  // Create a unique list of event types
   const typeList = new Set(data?.events.map((event) => event.type));
 
   return (
@@ -90,21 +78,15 @@ const EventList = () => {
                     title={event.title}
                     date={new Date(event.date)}
                     label={event.type}
-                    data-testid="card-testid"
                   />
                 )}
               </Modal>
             ))}
           </div>
           <div className="Pagination">
-            {[...Array(pageNumber)].map((_, n) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <a
-                key={n}
-                href="#events"
-                data-testid={`page-button-${n + 1}`}
-                onClick={() => setCurrentPage(n + 1)}
-              >
+            {[...Array(pageNumber || 0)].map((_, n) => (
+              //eslint-disable-next-line react/no-array-index-key
+              <a key={n} href="#events" onClick={() => setCurrentPage(n + 1)}>
                 {/* Afficher les numéros de page et permettre à l'utilisateur de naviguer entre les pages
                 // Display page numbers and allow the user to navigate between pages */}
                 {n + 1}

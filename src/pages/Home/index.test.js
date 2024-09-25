@@ -1,13 +1,17 @@
 import React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
+//Importer les matchers pour les tests
 import Home from "./index";
+
 
 // Décrit un groupe de tests pour la création du formulaire
 // Describe a group of tests for the creation of the form
 describe("When Form is created", () => {
+
   // Test pour vérifier que la liste des champs du formulaire est affichée
   // Test to check that the list of form fields is displayed
   it("a list of fields card is displayed", async () => {
+
     // Rend le composant Home
     // Render the Home component
     render(<Home />);
@@ -22,11 +26,11 @@ describe("When Form is created", () => {
   // Décrit un sous-groupe de tests pour les interactions avec le bouton de soumission
   // Describe a subgroup of tests for interactions with the submit button
   describe("and a click is triggered on the submit button", () => {
+
     // Test pour vérifier que le message de succès est affiché après le clic sur le bouton de soumission
     // Test to check that the success message is displayed after clicking the submit button
     it("the success message is displayed", async () => {
-      // Rend le composant Home
-      // Render the Home component
+
       render(<Home />);
       // Simule un clic sur le bouton "Envoyer"
       // Simulate a click on the "Envoyer" button
@@ -37,22 +41,37 @@ describe("When Form is created", () => {
           bubbles: true,
         })
       );
+
       // Vérifie que le message "En cours" est affiché après le clic
       // Check that the message "En cours" is displayed after the click
       await screen.findByText("En cours");
+
+      // Vérifie que le message "Message envoyé !" est affiché après le clic
+      // Check that the message "Message envoyé !" is displayed after the click
+      await screen.findByText("Message envoyé !");
     });
   });
 });
 
 // Ajout de tests pour les autres éléments de la page
 // Add tests for the other elements of the page
+
+// Décrit un groupe de tests pour la création de la page
+// Describe a group of tests for the creation of the page
 describe("When a page is created", () => {
+
   // Test pour vérifier que la liste des événements est affichée
-  // Test to check that the list of events is displayed
   it("a list of events is displayed", async () => {
     render(<Home />);
-    // Vérifie qu'il y a 18 elements de la liste des événements
-    // Check that there are 18 elements in the list of events
+    
+    // Vérifie que le titre "Nos réalisations" est présent
+  // Vérifie que le titre "Nos réalisations" est présent
+  const realisation = await screen.findByText("Nos réalisations");
+  expect(realisation).toBeInTheDocument();
+  
+    // Vérifie que la liste des événements est présente
+    const eventsContainer = await screen.findByTestId("EventsContainer");
+    expect(eventsContainer).toBeInTheDocument();
   });
 
   // Test pour vérifier que la liste des personnes est affichée
@@ -71,8 +90,9 @@ describe("When a page is created", () => {
   // Test to check that the footer is displayed
   it("a footer is displayed", async () => {
     render(<Home />);
-
-    const footer = screen.getByTestId("footer");
+    // Vérifie que le pied de page est présent dans le DOM
+    // Check that the footer is present in the DOM
+    const footer = screen.getByTestId("test-footer");
     expect(footer).toBeInTheDocument();
   });
 
@@ -81,8 +101,8 @@ describe("When a page is created", () => {
   it("an event card, with the last event, is displayed", async () => {
     render(<Home />);
     // Vérifie que la carte de l'événement le plus récent est présente dans le DOM
-    // Check that the card of the most recent event is present
-    const lastEvent = await screen.findByTestId("lastEvent");
-    expect(lastEvent).toBeInTheDocument();
+    // Check that the card of the most recent event is present in the DOM
+    const lastEvent = screen.getByTestId("last-event");
+    expect(lastEvent).toBeDefined();
   });
 });
