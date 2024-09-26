@@ -49,7 +49,7 @@ const Slider = () => {
       {byDateDesc.map((event, idx) => {
         // Utiliser idx comme clé de secours si event.id est undefined
         // Use idx as a fallback key if event.id is undefined
-        const eventKey = event.id || idx; 
+        const eventKey = event.id || idx;
         console.log(`Rendering event with key: ${eventKey}`);
         return (
           <div key={eventKey}>
@@ -79,7 +79,6 @@ const Slider = () => {
                   console.log(`Rendering radio with key: ${radioKey}`);
                   return (
                     <input
-
                       key={radioKey}
                       type="radio"
                       name={`radio-button-${eventKey}`}
