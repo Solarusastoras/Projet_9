@@ -90,6 +90,7 @@ describe("When Form is created", () => {
   });
 });
 
+// 1er Test
 // Ajout de tests pour les autres éléments de la page
 describe("When a page is created", () => {
   // Test pour vérifier que la liste des événements est affichée
@@ -101,14 +102,22 @@ describe("When a page is created", () => {
     );
 
     for (const event of mockData.events) {
-      expect(await screen.findByText(event.title)).toBeInTheDocument();
-      expect(
-        await screen.findByText(new Date(event.date).toLocaleDateString())
-      ).toBeInTheDocument();
-      expect(await screen.findByText(event.type)).toBeInTheDocument();
+      console.log("Checking event:", event);
+      const titleElement = await screen.findByText(event.title);
+      const dateElement = await screen.findByText(new Date(event.date).toLocaleDateString());
+      const typeElement = await screen.findByText(event.type);
+
+      console.log("Found title element:", titleElement);
+      console.log("Found date element:", dateElement);
+      console.log("Found type element:", typeElement);
+
+      expect(titleElement).toBeInTheDocument();
+      expect(dateElement).toBeInTheDocument();
+      expect(typeElement).toBeInTheDocument();
     }
   });
 
+  // 2ème test
   // Test pour vérifier que la liste des personnes est affichée
   it("a list of people is displayed", async () => {
     render(<Home />);
@@ -118,6 +127,7 @@ describe("When a page is created", () => {
     await screen.findByText("VP communication");
   });
 
+  // 3ème test
   // Test pour vérifier que le pied de page est affiché
   it("a footer is displayed", async () => {
     render(<Home />);
@@ -125,6 +135,7 @@ describe("When a page is created", () => {
     expect(footer).toBeInTheDocument();
   });
 
+  // 4ème test
   // Test pour vérifier qu'une carte d'événement avec le dernier événement est affichée
   it("an event card, with the last event, is displayed", async () => {
     render(<Home />);

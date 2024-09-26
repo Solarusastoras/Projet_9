@@ -17,11 +17,13 @@ const Select = ({
   const [value, setValue] = useState();
   const [collapsed, setCollapsed] = useState(true);
   const changeValue = (newValue) => {
+    
     // Ajout newValue dans onChange. Une fonction de rappel qui est appelée lorsque la valeur sélectionnée change
     // Add newValue in onChange. A callback function that is called when the selected value changes
     onChange(newValue);
     setValue(newValue);
     setCollapsed(newValue);
+
     // Fermer la liste déroulante après la sélection
     // Close the dropdown after selection
     setCollapsed(true);
