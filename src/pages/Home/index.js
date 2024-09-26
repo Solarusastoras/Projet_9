@@ -54,7 +54,9 @@ const Page = () => {
           </div>
         </section>
         <section id="EventsContainer" className="EventsContainer">
-          <h2 id="title_realisation" className="Title">Nos réalisations</h2>
+          <h2 id="title_realisation" className="Title">
+            Nos réalisations
+          </h2>
           <EventList />
         </section>
         <section className="PeoplesContainer">
