@@ -8,9 +8,10 @@ import "./style.scss";
 const Slider = () => {
   const { data } = useData();
   const [index, setIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
   // Utilisez useMemo pour mémoriser la valeur de byDateDesc
-  // Use useMemo to memoize the value of byDateDesc
+  // use useMemo to memorize the value of byDateDesc
   const byDateDesc = useMemo(() => {
     if (!data?.focus?.length) {
       return [];
@@ -25,30 +26,52 @@ const Slider = () => {
   console.log("=========");
 
   // Utilisez useCallback pour mémoriser la fonction nextCard
-  // Use useCallback to memoize the nextCard function
+  // use useCallback to memorize the nextCard function
   const nextCard = useCallback(() => {
-    setTimeout(() => {
-      if (byDateDesc.length > 0) {
-        const newIndex = index < byDateDesc.length - 1 ? index + 1 : 0;
-        setIndex(newIndex);
-      }
-    }, 5000);
-  }, [index, byDateDesc]);
+    let timer;
+    if (!isPaused) {
+      timer = setTimeout(() => {
+        if (byDateDesc.length > 0) {
+          const newIndex = index < byDateDesc.length - 1 ? index + 1 : 0;
+          setIndex(newIndex);
+        }
+      }, 5000);
+    }
+    return () => clearTimeout(timer);
+  }, [index, byDateDesc, isPaused]);
 
   // Utilisez useEffect pour exécuter nextCard à chaque changement d'index
-  // Use useEffect to run nextCard on each index change
+  // use useEffect to run nextCard on each index change
   useEffect(() => {
     console.log("=========");
     console.log(`Postion actuel du radio: ${index}`);
     console.log("=========");
-    nextCard();
+    const clearNextCard = nextCard();
+    return () => clearNextCard();
   }, [index, nextCard]);
+
+  // Gestionnaire d'événements pour la touche espace
+  // Event handler for the space key
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.code === "Space") {
+        // Empêche le comportement par défaut de la barre d'espace
+        // Prevent the default behavior of the space bar
+        event.preventDefault();
+        setIsPaused((prev) => !prev);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   return (
     <div className="SlideCardList">
       {byDateDesc.map((event, idx) => {
-        // Utiliser idx comme clé de secours si event.id est undefined
-        // Use idx as a fallback key if event.id is undefined
         const eventKey = event.id || idx;
         console.log(`Rendering event with key: ${eventKey}`);
         return (
@@ -70,11 +93,7 @@ const Slider = () => {
             <div className="SlideCard__paginationContainer">
               <div className="SlideCard__pagination">
                 {byDateDesc.map((_, radioIdx) => {
-                  // Crée une clé unique pour chaque bouton radio
-                  // Create a unique key for each radio button
                   const radioKey = `${eventKey}-${radioIdx}`;
-                  // Vérifie si l'index actuel correspond à l'index du bouton radio
-                  // Check if the current index matches the radio button index
                   const isChecked = index === radioIdx;
                   console.log(`Rendering radio with key: ${radioKey}`);
                   return (
@@ -82,11 +101,7 @@ const Slider = () => {
                       key={radioKey}
                       type="radio"
                       name={`radio-button-${eventKey}`}
-                      // Définit l'état coché du bouton radio en fonction de la correspondance des index
-                      // Set the checked state of the radio button based on index match
                       checked={isChecked}
-                      // Rend le bouton radio en lecture seule
-                      // Make the radio button read-only
                       readOnly
                     />
                   );
