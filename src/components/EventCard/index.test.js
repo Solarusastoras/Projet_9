@@ -46,7 +46,7 @@ describe("When a event card is created", () => {
           small
         />
       );
-      const cardElement = screen.getByTestId("card-testid");
+      const cardElement = screen.getByTestId("event-card");
       expect(cardElement.className.includes("EventCard--small")).toEqual(true);
     });
   });
