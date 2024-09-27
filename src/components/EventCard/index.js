@@ -13,12 +13,12 @@ const EventCard = ({
   small = false,
   ...props
 }) => (
-    <div
-      data-testid="event-card"
+    <div data-testid="event-card"
+      
       className={`EventCard${small ? " EventCard--small" : ""}`}
       {...props}
     >
-      <div className="EventCard__imageContainer">
+      <div className="EventCard__imageContainer" >
         <img data-testid="card-image-testid" src={imageSrc} alt={imageAlt} />
         <div className="EventCard__label">{label}</div>
       </div>

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>4/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>1/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>2/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -243,10 +243,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -340,7 +340,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -409,10 +409,10 @@ import Form from "../../containers/Form";
 import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
 &nbsp;
-const Page = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-  const { last } = <span class="cstat-no" title="statement not covered" >useData();</span>
+const Page = () =&gt; {
+  const { last } = useData();
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;&gt;
       &lt;header&gt;
         &lt;Menu /&gt;
@@ -451,7 +451,7 @@ const Page = <span class="cstat-no" title="statement not covered" ><span class="
           &lt;/div&gt;
         &lt;/section&gt;
         &lt;section id="EventsContainer" className="EventsContainer"&gt;
-          &lt;h2 id="title_realisation" className="Title"&gt;
+          &lt;h2 id="title_realisation" className="Title" data-testid="EventList"&gt;
             Nos réalisations
           &lt;/h2&gt;
           &lt;EventList /&gt;
@@ -505,8 +505,8 @@ const Page = <span class="cstat-no" title="statement not covered" ><span class="
               &lt;/div&gt;
             }
           &gt;
-            {<span class="fstat-no" title="function not covered" >({</span> setIsOpened }) =&gt; (
-<span class="cstat-no" title="statement not covered" >              &lt;Form onSuccess={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setIsOpened(true)}</span> onError={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >null}</span> /&gt;</span>
+            {({ setIsOpened }) =&gt; (
+              &lt;Form onSuccess={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setIsOpened(true)}</span> onError={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >null}</span> /&gt;
             )}
           &lt;/Modal&gt;
         &lt;/div&gt;
@@ -515,8 +515,8 @@ const Page = <span class="cstat-no" title="statement not covered" ><span class="
       &lt;footer data-testid="test-footer" className="row"&gt;
         &lt;div className="col presta" data-testid="last-event"&gt;
           &lt;h3&gt;Notre dernière prestation&lt;/h3&gt;
-          {last &amp;&amp; last.cover &amp;&amp; last.title &amp;&amp; (
-            &lt;EventCard
+          {last &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >last.cover </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >last.title </span>&amp;&amp; (
+<span class="branch-3 cbranch-no" title="branch not covered" >            &lt;EventCard</span>
               imageSrc={last.cover}
               title={last.title}
               date={new Date(last.date)}
@@ -568,7 +568,7 @@ export default Page;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Fri Sep 27 2024 04:05:21 GMT+0200 (heure d’été d’Europe centrale)
+                at Fri Sep 27 2024 06:41:32 GMT+0200 (heure d’été d’Europe centrale)
             </div>
         <script src="prettify.js"></script>
         <script>

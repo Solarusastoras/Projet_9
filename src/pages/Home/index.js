@@ -12,7 +12,7 @@ import Form from "../../containers/Form";
 import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
 
-const Page = () => {
+const Page = ({ events }) => {
   const { last } = useData();
 
   return (
@@ -53,11 +53,11 @@ const Page = () => {
             </ServiceCard>
           </div>
         </section>
-        <section id="EventsContainer" className="EventsContainer">
-          <h2 id="title_realisation" className="Title" data-testid="EventList">
+        <section id="EventsContainer" className="EventsContainer" data-testid="eventListHome">
+          <h2 id="title_realisation" className="Title">
             Nos réalisations
           </h2>
-          <EventList />
+          <EventList events={events} />
         </section>
         <section className="PeoplesContainer">
           <h2 className="Title">Notre équipe</h2>
