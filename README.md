@@ -7,9 +7,12 @@ L'application est le site d'une agence evenementielle.
 
 ## Installation
 - `yarn install`
+- 'yarn add --dev @testing-library/dom'
+- 'yarn add --dev jest'
 
 ## Lancement de l'application
 - `yarn start`
 
 ## Tests
 - `yarn test`
+
